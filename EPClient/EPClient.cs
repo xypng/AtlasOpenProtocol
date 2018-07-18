@@ -1,4 +1,4 @@
-﻿using OpenProtocolInterpreter;
+﻿using OpenProtocol;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,22 +30,6 @@ namespace EPClient
         {
             ReadConfig();
             InitUI();
-            string left;
-            //var mid2 = MidInterpreter.Parse("00570002            010001020103Airbag1234567890123456789", out left);
-            //var m0001 = new Mid0001().Pack();
-            //var m0003 = new Mid0003().Pack();
-            //var mid4 = MidInterpreter.Parse("00260004            001802", out left);
-            //var mid5 = MidInterpreter.Parse("00240005            0018", out left);
-            //var m9999 = new Mid9999().Pack();
-            //var mid9999 = MidInterpreter.Parse("00209999001         ", out left);
-            //var m0060 = new Mid0060().Pack();
-            //var mid61 = MidInterpreter.Parse("023100610010        010001020103airbag7                 z04KPOL3456JKLO897         Z050006003070000080000090100111120008401300140014001200150007391600000170999918000001900000202001-06-02:09:54:09212001-05-29:12:34:33221233456750000", out left);
-            //var m62 = new Mid0062().Pack();
-            //var m63 = new Mid0063().Pack();
-            //var mid11 = MidInterpreter.Parse("00290011            002001002", out left);
-            //var m12 = new Mid0012() { PsetID = "002" }.Pack();
-            //var mid0013 = MidInterpreter.Parse("01040013            0100102Airbag1                 z0310403050012000600150007001400080036009007201000480",out left);
-            var m18 = new Mid0018() { PsetID = "002" }.Pack();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

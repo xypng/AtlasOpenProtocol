@@ -82,9 +82,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenProtocolInterpreter\OpenProtocolInterpreter.csproj">
-      <Project>{63BE3B7F-2A3B-4791-AE7A-A4A96377DE65}</Project>
-      <Name>OpenProtocolInterpreter</Name>
+    <ProjectReference Include="..\OpenProtocol\OpenProtocol.csproj">
+      <Project>{63be3b7f-2a3b-4791-ae7a-a4a96377de65}</Project>
+      <Name>OpenProtocol</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

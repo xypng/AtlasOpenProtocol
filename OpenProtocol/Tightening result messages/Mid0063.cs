@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
-    public class Mid0012 : Mid
+    /// <summary>
+    /// MID 0063 Last tightening result data unsubscribe
+    /// </summary>
+    public class Mid0063 : Mid
     {
-        public string PsetID { get; set; }
         public override StringBuilder Pack()
         {
             StringBuilder sb = base.Pack();
-            sb.Append(PsetID.PadLeft(3, '0'));
             return AddLength(sb);
         }
     }

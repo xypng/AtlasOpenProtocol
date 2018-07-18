@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("OpenProtocol")]
+[assembly: AssemblyTitle("OpenProtocolInterpreter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OpenProtocol")]
+[assembly: AssemblyProduct("OpenProtocolInterpreter")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("aba2ddcb-cde5-443b-a0e6-79733a4306bc")]
+[assembly: Guid("63be3b7f-2a3b-4791-ae7a-a4a96377de65")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

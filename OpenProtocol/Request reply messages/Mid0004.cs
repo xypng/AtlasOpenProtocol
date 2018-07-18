@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     /// <summary>
     /// MID 0004 Command error 
@@ -28,7 +28,7 @@ namespace OpenProtocolInterpreter
             }
         }
 
-        public Dictionary<string, string> ErrorDescriptionDic = new Dictionary<string, string>()
+        public static Dictionary<string, string> ErrorDescriptionDic = new Dictionary<string, string>()
         {
             { "00", "No Error" },
             { "01", "Invalid data" },

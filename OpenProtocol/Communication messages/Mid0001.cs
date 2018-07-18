@@ -4,23 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     /// <summary>
-    /// MID 9999 Keep alive message
+    /// MID 0001 Communication start
     /// </summary>
-    public class Mid9999 : Mid
+    public class Mid0001 : Mid
     {
-        public Mid9999():base()
-        {
-
-        }
-
-        public Mid9999(string message) : base(message)
-        {
-
-        }
-
         public override StringBuilder Pack()
         {
             StringBuilder sb = base.Pack();

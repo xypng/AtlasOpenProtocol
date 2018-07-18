@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPClient", "EPClient\EPClie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlasController", "AtlasController\AtlasController.csproj", "{71F12C1B-D1F3-4722-97A0-3CD61AD2F0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProtocolInterpreter", "OpenProtocolInterpreter\OpenProtocolInterpreter.csproj", "{63BE3B7F-2A3B-4791-AE7A-A4A96377DE65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProtocol", "OpenProtocol\OpenProtocol.csproj", "{63BE3B7F-2A3B-4791-AE7A-A4A96377DE65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

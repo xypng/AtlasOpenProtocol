@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     public class MidInterpreter
     {
@@ -23,14 +23,14 @@ namespace OpenProtocolInterpreter
                     leftMessage = message;
                     return null;
                 }
-                if (length<message.Length)
+                if (length>message.Length)
                 {
                     leftMessage = message;
                     return null;
                 }
                 leftMessage = message.Substring(length);
                 string mid = message.Substring(4, 4);
-                Type type = Type.GetType("OpenProtocolInterpreter.Mid" + mid);
+                Type type = Type.GetType("OpenProtocol.Mid" + mid);
                 return Activator.CreateInstance(type, message) as Mid;
             }
         }

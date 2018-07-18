@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     /// <summary>
     /// MID 0011 Parameter set ID upload reply

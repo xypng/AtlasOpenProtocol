@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     /// <summary>
-    /// MID 0010 Parameter set ID upload request 
+    /// MID 0060 Last tightening result data subscribe
     /// </summary>
-    public class Mid0010 : Mid
+    public class Mid0060 : Mid
     {
         public override StringBuilder Pack()
         {

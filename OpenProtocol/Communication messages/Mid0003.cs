@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenProtocolInterpreter
+namespace OpenProtocol
 {
     /// <summary>
-    /// MID 0001 Communication start
+    /// MID 0003 Communication stop
     /// </summary>
-    public class Mid0001 : Mid
+    public class Mid0003 : Mid
     {
         public override StringBuilder Pack()
         {
