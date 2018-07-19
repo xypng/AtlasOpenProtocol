@@ -20,11 +20,14 @@ namespace OpenProtocol
             {
                 Mid = message.Substring(20, 4);
                 ErrorCode = message.Substring(24, 2);
-                ErrorDescription = ErrorDescriptionDic[ErrorCode];
+                if (ErrorDescriptionDic.Keys.Contains(ErrorCode))
+                {
+                    ErrorDescription = ErrorDescriptionDic[ErrorCode];
+                }
             }
             catch
             {
-
+                throw;
             }
         }
 

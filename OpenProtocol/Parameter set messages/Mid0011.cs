@@ -23,9 +23,9 @@ namespace OpenProtocol
                     Psets[i] = message.Substring(23 + i*3, 3);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
     }

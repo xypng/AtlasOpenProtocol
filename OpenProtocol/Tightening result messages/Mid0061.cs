@@ -12,6 +12,9 @@ namespace OpenProtocol
     /// </summary>
     public class Mid0061 : Mid
     {
+        /// <summary>
+        /// cellid
+        /// </summary>
         public string CellID { get; set; }
         public string ChannelID { get; set; }
         public string TorqueControllerName { get; set; }
@@ -70,9 +73,9 @@ namespace OpenProtocol
                 BatchStatus = (BatchStatus)Convert.ToInt32(message.Substring(218, 1));
                 TighteningID = message.Substring(221, 10);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
     }

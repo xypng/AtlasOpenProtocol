@@ -15,9 +15,9 @@ namespace OpenProtocol
 
         public override StringBuilder Pack()
         {
-            StringBuilder sb = base.Pack();
+            sb = new StringBuilder();
             sb.Append(PsetID.PadLeft(3, '0'));
-            return AddLength(sb);
+            return base.Pack();
         }
     }
 }

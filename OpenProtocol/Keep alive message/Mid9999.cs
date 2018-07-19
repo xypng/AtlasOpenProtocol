@@ -20,11 +20,5 @@ namespace OpenProtocol
         {
 
         }
-
-        public override StringBuilder Pack()
-        {
-            StringBuilder sb = base.Pack();
-            return AddLength(sb);
-        }
     }
 }

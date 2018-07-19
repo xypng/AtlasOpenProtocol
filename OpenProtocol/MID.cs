@@ -1,14 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 
 namespace OpenProtocol
 {
     public abstract class Mid
     {
+        protected static Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        protected StringBuilder sb;
+
         public MidHead MidHead { get; set; }
 
         public Mid()
@@ -30,31 +35,32 @@ namespace OpenProtocol
                 this.MidHead.SpindleID = message.Substring(14, 2).Trim();
                 this.MidHead.Spare = message.Substring(16, 4).Trim();
             }
-            catch
+            catch(Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
 
         public virtual StringBuilder Pack()
         {
-            StringBuilder sb = new StringBuilder(this.GetType().Name.Substring(3, 4));
-            sb.Append(MidHead.Revision.PadLeft(3, '0'));
-            sb.Append(MidHead.NoAckflag.PadLeft(1));
-            sb.Append(MidHead.StationID.PadLeft(2));
-            sb.Append(MidHead.SpindleID.PadLeft(2));
-            sb.Append(MidHead.Spare.PadLeft(4));
+            if (sb==null)
+            {
+                sb = new StringBuilder();
+            }
+            sb.Insert(0, MidHead.Spare.PadLeft(4));
+            sb.Insert(0, MidHead.SpindleID.PadLeft(2));
+            sb.Insert(0, MidHead.StationID.PadLeft(2));
+            sb.Insert(0, MidHead.NoAckflag.PadLeft(1));
+            sb.Insert(0, MidHead.Revision.PadLeft(3, ' '));
+            sb.Insert(0, this.GetType().Name.Substring(3, 4));
+            sb.Insert(0, (sb.Length + 4).ToString().PadLeft(4, '0'), 1);
+            logger.Info(sb);
             return sb;
-        }
-
-        public StringBuilder AddLength(StringBuilder sb)
-        {
-            return sb.Insert(0, (sb.Length + 4).ToString().PadLeft(4, '0'), 1).Append("\0");
         }
 
         public override string ToString()
         {
-            var json = new JavaScriptSerializer().Serialize(this);
+            string json = JsonConvert.SerializeObject(this, Formatting.Indented);
             return json;
         }
     }

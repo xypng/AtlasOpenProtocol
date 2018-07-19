@@ -55,9 +55,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dGVGuns);
             this.groupBox1.Location = new System.Drawing.Point(6, 12);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(612, 139);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -78,7 +78,7 @@
             this.GunStatus});
             this.dGVGuns.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGVGuns.Location = new System.Drawing.Point(2, 16);
-            this.dGVGuns.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dGVGuns.Margin = new System.Windows.Forms.Padding(2);
             this.dGVGuns.Name = "dGVGuns";
             this.dGVGuns.RowTemplate.Height = 20;
             this.dGVGuns.Size = new System.Drawing.Size(608, 121);
@@ -137,10 +137,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dGVActions);
             this.groupBox2.Location = new System.Drawing.Point(6, 154);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox2.Size = new System.Drawing.Size(615, 276);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(615, 294);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "工序";
@@ -161,10 +161,10 @@
             this.ActionNokCount});
             this.dGVActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGVActions.Location = new System.Drawing.Point(2, 16);
-            this.dGVActions.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dGVActions.Margin = new System.Windows.Forms.Padding(2);
             this.dGVActions.Name = "dGVActions";
             this.dGVActions.RowTemplate.Height = 20;
-            this.dGVActions.Size = new System.Drawing.Size(611, 258);
+            this.dGVActions.Size = new System.Drawing.Size(611, 276);
             this.dGVActions.TabIndex = 0;
             this.dGVActions.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CellValidating);
             // 
@@ -211,16 +211,16 @@
             this.ActionNokCount.Name = "ActionNokCount";
             this.ActionNokCount.ReadOnly = true;
             // 
-            // Form1
+            // EPClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 452);
+            this.ClientSize = new System.Drawing.Size(632, 470);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(648, 491);
-            this.Name = "Form1";
+            this.Name = "EPClient";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

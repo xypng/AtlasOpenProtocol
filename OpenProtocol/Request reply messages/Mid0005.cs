@@ -18,9 +18,9 @@ namespace OpenProtocol
             {
                 Mid = message.Substring(20, 4);
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
     }

@@ -25,9 +25,9 @@ namespace OpenProtocol
                 this.ChannelID = message.Substring(28, 2);
                 this.ControllerName = message.Substring(32, 25);
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.Error(ex);
             }
         }
     }
