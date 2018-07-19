@@ -30,6 +30,8 @@ namespace EPClient
         {
             ReadConfig();
             InitUI();
+            string left;
+            var mid61 = MidInterpreter.Parse("023100610010        010001020103airbag7                 z04KPOL3456JKLO897         Z050006003070000080000090100111120008401300140014001200150007391600000170999918000001900000202001-06-02:09:54:09212001-05-29:12:34:33221233456750000", out left);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

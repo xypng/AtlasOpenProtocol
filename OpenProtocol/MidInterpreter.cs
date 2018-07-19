@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,12 @@ namespace OpenProtocol
 {
     public class MidInterpreter
     {
+        private static Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static Mid Parse(string message, out string leftMessage)
         {
-            if(message.Length<20)
+            logger.Info(message);
+            if (message.Length<20)
             {
                 leftMessage = message;
                 return null;
