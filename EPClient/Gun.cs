@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OpenProtocol;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,5 +39,11 @@ namespace EPClient
         /// </summary>
         [System.Xml.Serialization.XmlIgnore]
         public bool Status { get; set; } = false;
+
+        /// <summary>
+        /// 与控制器的连接
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public SocketConnect connect { get; set; }
     }
 }

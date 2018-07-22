@@ -20,7 +20,7 @@ namespace OpenProtocol
         public string TorqueControllerName { get; set; }
         public string VINNumber { get; set; }
         public string JobID { get; set; }
-        public string ParameterSetID { get; set; }
+        public int ParameterSetID { get; set; }
         public string BatchSize { get; set; }
         public string BatchCounter { get; set; }
         public TighteningStatus TighteningStatus { get; set; }
@@ -50,7 +50,7 @@ namespace OpenProtocol
                 TorqueControllerName = message.Substring(32, 25);
                 VINNumber = message.Substring(59, 25);
                 JobID = message.Substring(86, 2);
-                ParameterSetID = message.Substring(90, 3);
+                ParameterSetID = Convert.ToInt32(message.Substring(90, 3));
                 BatchSize = message.Substring(95, 4);
                 BatchCounter = message.Substring(101, 4);
                 TighteningStatus = (TighteningStatus)Convert.ToInt32(message.Substring(107, 1));
@@ -75,7 +75,7 @@ namespace OpenProtocol
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                logger.Error(message + Environment.NewLine + ex);
             }
         }
     }

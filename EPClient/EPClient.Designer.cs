@@ -30,11 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dGVGuns = new System.Windows.Forms.DataGridView();
-            this.GunId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GunCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GunIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GunPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.GunStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dGVActions = new System.Windows.Forms.DataGridView();
             this.ActionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +38,12 @@
             this.ActionBatchCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionOkCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionNokCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GunId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GunCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GunIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GunPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GunStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.connect = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVGuns)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -75,7 +76,8 @@
             this.GunCode,
             this.GunIp,
             this.GunPort,
-            this.GunStatus});
+            this.GunStatus,
+            this.connect});
             this.dGVGuns.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGVGuns.Location = new System.Drawing.Point(2, 16);
             this.dGVGuns.Margin = new System.Windows.Forms.Padding(2);
@@ -85,50 +87,6 @@
             this.dGVGuns.TabIndex = 0;
             this.dGVGuns.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CellValidating);
             this.dGVGuns.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dGVGuns_UserDeletingRow);
-            // 
-            // GunId
-            // 
-            this.GunId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GunId.DataPropertyName = "ID";
-            this.GunId.HeaderText = "id";
-            this.GunId.Name = "GunId";
-            this.GunId.ReadOnly = true;
-            this.GunId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.GunId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.GunId.Visible = false;
-            // 
-            // GunCode
-            // 
-            this.GunCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GunCode.DataPropertyName = "Code";
-            this.GunCode.HeaderText = "编号";
-            this.GunCode.Name = "GunCode";
-            this.GunCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GunIp
-            // 
-            this.GunIp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GunIp.DataPropertyName = "IP";
-            this.GunIp.HeaderText = "ip";
-            this.GunIp.Name = "GunIp";
-            this.GunIp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GunPort
-            // 
-            this.GunPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GunPort.DataPropertyName = "Port";
-            this.GunPort.HeaderText = "端口";
-            this.GunPort.Name = "GunPort";
-            this.GunPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // GunStatus
-            // 
-            this.GunStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.GunStatus.DataPropertyName = "Status";
-            this.GunStatus.HeaderText = "状态";
-            this.GunStatus.Name = "GunStatus";
-            this.GunStatus.ReadOnly = true;
-            this.GunStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // groupBox2
             // 
@@ -211,6 +169,58 @@
             this.ActionNokCount.Name = "ActionNokCount";
             this.ActionNokCount.ReadOnly = true;
             // 
+            // GunId
+            // 
+            this.GunId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GunId.DataPropertyName = "ID";
+            this.GunId.HeaderText = "id";
+            this.GunId.Name = "GunId";
+            this.GunId.ReadOnly = true;
+            this.GunId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.GunId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.GunId.Visible = false;
+            // 
+            // GunCode
+            // 
+            this.GunCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GunCode.DataPropertyName = "Code";
+            this.GunCode.HeaderText = "编号";
+            this.GunCode.Name = "GunCode";
+            this.GunCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GunIp
+            // 
+            this.GunIp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GunIp.DataPropertyName = "IP";
+            this.GunIp.HeaderText = "ip";
+            this.GunIp.Name = "GunIp";
+            this.GunIp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GunPort
+            // 
+            this.GunPort.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GunPort.DataPropertyName = "Port";
+            this.GunPort.HeaderText = "端口";
+            this.GunPort.Name = "GunPort";
+            this.GunPort.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // GunStatus
+            // 
+            this.GunStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.GunStatus.DataPropertyName = "Status";
+            this.GunStatus.HeaderText = "状态";
+            this.GunStatus.Name = "GunStatus";
+            this.GunStatus.ReadOnly = true;
+            this.GunStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // connect
+            // 
+            this.connect.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.connect.HeaderText = "连接";
+            this.connect.Name = "connect";
+            this.connect.ReadOnly = true;
+            this.connect.Visible = false;
+            // 
             // EPClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -238,17 +248,18 @@
         private System.Windows.Forms.DataGridView dGVGuns;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dGVActions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GunId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GunCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GunIp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn GunPort;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn GunStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionName;
         private System.Windows.Forms.DataGridViewComboBoxColumn ActionGun;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionBatchCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionOkCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActionNokCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GunId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GunCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GunIp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GunPort;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn GunStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn connect;
     }
 }
 

@@ -18,7 +18,7 @@ namespace OpenProtocol
 
         public Mid()
         {
-            this.MidHead = new MidHead() { MID = "", Revision="", NoAckflag="", StationID="", SpindleID="", Spare=""};
+            this.MidHead = new MidHead() { MID = "", Revision= "001", NoAckflag="", StationID="", SpindleID="", Spare=""};
         }
 
         public Mid(string message):this()
@@ -37,11 +37,11 @@ namespace OpenProtocol
             }
             catch(Exception ex)
             {
-                logger.Error(ex);
+                logger.Error(message + Environment.NewLine + ex);
             }
         }
 
-        public virtual StringBuilder Pack()
+        public virtual string Pack()
         {
             if (sb==null)
             {
@@ -54,8 +54,8 @@ namespace OpenProtocol
             sb.Insert(0, MidHead.Revision.PadLeft(3, ' '));
             sb.Insert(0, this.GetType().Name.Substring(3, 4));
             sb.Insert(0, (sb.Length + 4).ToString().PadLeft(4, '0'), 1);
-            logger.Info(sb);
-            return sb;
+            string str = sb.ToString();
+            return str;
         }
 
         public override string ToString()

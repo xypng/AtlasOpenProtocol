@@ -39,7 +39,7 @@ namespace OpenProtocol
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                logger.Error(message + Environment.NewLine + ex);
             }
         }
     }

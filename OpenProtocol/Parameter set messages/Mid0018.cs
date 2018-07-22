@@ -13,7 +13,7 @@ namespace OpenProtocol
     {
         public string PsetID { get; set; }
 
-        public override StringBuilder Pack()
+        public override string Pack()
         {
             sb = new StringBuilder();
             sb.Append(PsetID.PadLeft(3, '0'));

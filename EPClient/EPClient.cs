@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -17,6 +18,8 @@ namespace EPClient
     public partial class EPClient : Form
     {
         Regex validipregex = new Regex(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$");
+
+        SocketConnect socket;
 
         public EPClient()
         {
@@ -30,6 +33,87 @@ namespace EPClient
         {
             ReadConfig();
             InitUI();
+            ConnectGuns();
+        }
+
+        private void Socket_EventTighteningResultNoSubscribe(object sender, Mid mid)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun!=null)
+            {
+                Console.WriteLine("订阅拧紧结果失败：" + gun.IP + ":" + gun.Port + mid);
+            }
+        }
+
+        private void Socket_EventConnected(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun!=null)
+            {
+                Console.WriteLine("连接成功：" + gun.IP + ":" + gun.Port);
+            }
+        }
+
+        private void Socket_EventCommunicationed(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun!=null)
+            {
+                Console.WriteLine("通信成功：" + gun.IP + ":" + gun.Port);
+            }
+        }
+
+        private void Socket_EventTighteningResultSubscribe(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun!=null)
+            {
+                Console.WriteLine("订阅成功：" + gun.IP + ":" + gun.Port);
+                this.Invoke(new System.Action(() => {
+                    gun.Status = true;
+                    dGVGuns.Refresh();
+                }));
+            }
+        }
+
+        private void Socket_EventTighteningResultRecived(object sender, Mid mid)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            var pset = (mid as Mid0061).ParameterSetID;
+            var status = (mid as Mid0061).TighteningStatus;
+            var action = BActions.Where(a=>a.GunID==gun.ID && a.Pset==pset).FirstOrDefault();
+            if (action!=null)
+            {
+                if (status == TighteningStatus.OK)
+                {
+                    Console.WriteLine("OK：" + gun.IP + ":" + gun.Port);
+                    this.Invoke(new System.Action(() => {
+                        action.OkCount += 1;
+                        dGVActions.Refresh();
+                    }));
+                }
+                else
+                {
+                    Console.WriteLine("NOK：" + gun.IP + ":" + gun.Port);
+                    this.Invoke(new System.Action(() => {
+                        action.NokCount += 1;
+                        dGVActions.Refresh();
+                    }));
+                }
+            }
+        }
+
+        private void Socket_EventDisConnected(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun!=null)
+            {
+                Console.WriteLine("连接失败：" + gun.IP + ":" + gun.Port);
+                this.Invoke(new System.Action(() => {
+                    gun.Status = false;
+                    dGVGuns.Refresh();
+                }));
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -119,13 +203,30 @@ namespace EPClient
         /// </summary>
         private void InitUI()
         {
-            dGVGuns.DataSource = BGuns;
-            dGVActions.DataSource = BActions;
+            dGVGuns.DataSource = new BindingSource(BGuns, null);
+            dGVActions.DataSource = new BindingSource(BActions, null);
 
             DataGridViewComboBoxColumn gunColum = dGVActions.Columns["ActionGun"] as DataGridViewComboBoxColumn;
             gunColum.DataSource = BGuns;
             gunColum.DisplayMember = "Code";
             gunColum.ValueMember = "ID";
+        }
+
+        private void ConnectGuns()
+        {
+            BGuns.ToList().ForEach(g=> {
+                string ip = g.IP;
+                int port = g.Port;
+                socket = new SocketConnect(ip, port);
+                socket.EventConnected += Socket_EventConnected;
+                socket.EventCommunicationed += Socket_EventCommunicationed;
+                socket.EventTighteningResultSubscribe += Socket_EventTighteningResultSubscribe;
+                socket.EventTighteningResultRecived += Socket_EventTighteningResultRecived;
+                socket.EventTighteningResultNoSubscribe += Socket_EventTighteningResultNoSubscribe; ;
+                socket.EventDisConnected += Socket_EventDisConnected;
+                g.connect = socket;
+                socket.Start();
+            });
         }
 
         /// <summary>

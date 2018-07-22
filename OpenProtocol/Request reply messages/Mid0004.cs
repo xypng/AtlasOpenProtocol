@@ -25,9 +25,9 @@ namespace OpenProtocol
                     ErrorDescription = ErrorDescriptionDic[ErrorCode];
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                logger.Error(message + Environment.NewLine + ex);
             }
         }
 

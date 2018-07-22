@@ -65,6 +65,7 @@
     <Compile Include="Parameter set messages\Mid0018.cs" />
     <Compile Include="Request reply messages\Mid0004.cs" />
     <Compile Include="Request reply messages\Mid0005.cs" />
+    <Compile Include="SocketConnect.cs" />
     <Compile Include="Tightening result messages\Mid0060.cs" />
     <Compile Include="Keep alive message\Mid9999.cs" />
     <Compile Include="MidHead.cs" />
