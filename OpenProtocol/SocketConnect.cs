@@ -122,6 +122,7 @@ namespace OpenProtocol
                 byte[] buffer = new byte[lengthBuffer];
                 Buffer.BlockCopy(receiveBuffer, 0, buffer, 0, lengthBuffer);
                 string msg = Encoding.ASCII.GetString(buffer);
+                logger.Info(e.RemoteEndPoint.ToString() + " | 收到消息：" + msg);
                 leaveSB.Append(msg);
                 while(true)
                 {
@@ -129,15 +130,16 @@ namespace OpenProtocol
                     {
                         break;
                     }
+                    logger.Info(e.RemoteEndPoint.ToString() + " | 处理消息：" + leaveSB);
                     if (leaveSB.Length<20)
                     {
                         logger.Info(e.RemoteEndPoint.ToString() + " | 长度不够：" + leaveSB.ToString());
                         break;
                     }
                     int len;
-                    if (!int.TryParse(leaveSB.ToString().Substring(0, 4), out len) && len>0)
+                    if (!int.TryParse(leaveSB.ToString().Substring(0, 4), out len) || len<=0)
                     {
-                        logger.Error(e.RemoteEndPoint.ToString() + " | 长度不是整数：" + leaveSB.ToString());
+                        logger.Error(e.RemoteEndPoint.ToString() + " | 长度不是正整数：" + leaveSB.ToString());
                         leaveSB.Clear();
                         break;
                     }
@@ -155,8 +157,8 @@ namespace OpenProtocol
                         {
                             heartBeatTimer = new Timer(HeartBeat, null, 10000, 10000);
                         }
-                        Send(new Mid0060());
                         logger.Info(e.RemoteEndPoint.ToString() + " | 建立通信成功");
+                        Send(new Mid0060());
                         EventCommunicationed?.Invoke(this, e);
                     }
                     else if (mid is Mid0005)
@@ -175,8 +177,8 @@ namespace OpenProtocol
                     }
                     else if (mid is Mid0061)
                     {
-                        Send(new Mid0062());
                         logger.Info(e.RemoteEndPoint.ToString() + " | 收到拧紧结果：" + mid);
+                        Send(new Mid0062());
                         EventTighteningResultRecived?.Invoke(this, mid);
                     }
                     else if (mid is Mid0011)

@@ -36,24 +36,6 @@ namespace EPClient
             ConnectGuns();
         }
 
-        private void Socket_EventTighteningResultNoSubscribe(object sender, Mid mid)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            if (gun!=null)
-            {
-                Console.WriteLine("订阅拧紧结果失败：" + gun.IP + ":" + gun.Port + mid);
-            }
-        }
-
-        private void Socket_EventConnected(object sender, EventArgs e)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            if (gun!=null)
-            {
-                Console.WriteLine("连接成功：" + gun.IP + ":" + gun.Port);
-            }
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveConfig();
@@ -170,13 +152,27 @@ namespace EPClient
             });
         }
 
+        private void Socket_EventTighteningResultNoSubscribe(object sender, Mid mid)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun != null)
+            {
+            }
+        }
+
+        private void Socket_EventConnected(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun != null)
+            {
+            }
+        }
 
         private void Socket_EventCommunicationed(object sender, EventArgs e)
         {
             var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
             if (gun != null)
             {
-                Console.WriteLine("通信成功：" + gun.IP + ":" + gun.Port);
             }
         }
 
@@ -185,7 +181,6 @@ namespace EPClient
             var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
             if (gun != null)
             {
-                Console.WriteLine("订阅成功：" + gun.IP + ":" + gun.Port);
                 this.Invoke(new System.Action(() => {
                     gun.Status = true;
                     dGVGuns.Refresh();
@@ -203,7 +198,6 @@ namespace EPClient
             {
                 if (status == TighteningStatus.OK)
                 {
-                    Console.WriteLine("OK：" + gun.IP + ":" + gun.Port);
                     this.Invoke(new System.Action(() => {
                         action.OkCount += 1;
                         dGVActions.Refresh();
@@ -211,7 +205,6 @@ namespace EPClient
                 }
                 else
                 {
-                    Console.WriteLine("NOK：" + gun.IP + ":" + gun.Port);
                     this.Invoke(new System.Action(() => {
                         action.NokCount += 1;
                         dGVActions.Refresh();
@@ -225,7 +218,6 @@ namespace EPClient
             var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
             if (gun != null)
             {
-                Console.WriteLine("连接失败：" + gun.IP + ":" + gun.Port);
                 this.Invoke(new System.Action(() => {
                     gun.Status = false;
                     dGVGuns.Refresh();
