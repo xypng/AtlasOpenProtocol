@@ -116,7 +116,6 @@ namespace OpenProtocol
             Socket socket = sender as Socket;
             if (e.SocketError == SocketError.Success && e.BytesTransferred > 0)
             {
-                socket.ReceiveAsync(e);
                 string ipAdress = socket.RemoteEndPoint.ToString();
                 int lengthBuffer = e.BytesTransferred;
                 byte[] receiveBuffer = e.Buffer;
@@ -154,7 +153,7 @@ namespace OpenProtocol
                     {
                         if (heartBeatTimer == null)
                         {
-                            heartBeatTimer = new Timer(HeartBeat, null, 5000, 5000);
+                            heartBeatTimer = new Timer(HeartBeat, null, 10000, 10000);
                         }
                         Send(new Mid0060());
                         logger.Info(e.RemoteEndPoint.ToString() + " | 建立通信成功");
@@ -216,6 +215,7 @@ namespace OpenProtocol
 
                     }
                 }
+                socket.ReceiveAsync(e);
             }
             else
             {
@@ -225,11 +225,16 @@ namespace OpenProtocol
             }
         }
         
-        public void Send(Mid mid)
+        public bool Send(Mid mid)
         {
             if (m_connectSAEA.SocketError == SocketError.Success && m_socket != null)
             {
                 Send(mid.Pack());
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -239,8 +244,10 @@ namespace OpenProtocol
         /// <param name="success">成功的回调</param>
         public void RequestPsetIds(Action<Mid> success)
         {
-            PsetIdsRecived = success;
-            Send(new Mid0010());
+            if (Send(new Mid0010()))
+            {
+                PsetIdsRecived = success;
+            }
         }
 
         /// <summary>
@@ -251,9 +258,11 @@ namespace OpenProtocol
         /// <param name="fail">失败的回调</param>
         public void RequestPsetData(string psetID, Action<Mid> success, Action<Mid> fail)
         {
-            PsetDataRecived = success;
-            PsetDataFail = fail;
-            Send(new Mid0012() { PsetID = psetID});
+            if (Send(new Mid0012() { PsetID = psetID }))
+            {
+                PsetDataRecived = success;
+                PsetDataFail = fail;
+            }
         }
 
         /// <summary>
@@ -264,24 +273,31 @@ namespace OpenProtocol
         /// <param name="fail">失败的回调</param>
         public void SelectPset(string psetID, Action success, Action<Mid> fail)
         {
-            PsetChanged = success;
-            PsetNoChange = fail;
-            Send(new Mid0018() { PsetID = psetID});
+            if (Send(new Mid0018() { PsetID = psetID }))
+            {
+                PsetChanged = success;
+                PsetNoChange = fail;
+            }
         }
+        
+        private static readonly object lockObj = new object();
 
         public void Send(string msg)
         {
-            logger.Info(m_socket.RemoteEndPoint.ToString() + " | 发送消息：[" + msg + "]");
-            byte[] sendBuffer = Encoding.ASCII.GetBytes(msg);
-            if (m_sendSAEA == null)
+            lock(lockObj)
             {
-                m_sendSAEA = new SocketAsyncEventArgs();
-                m_sendSAEA.Completed += OnSendCompleted;
-            }
-            m_sendSAEA.SetBuffer(sendBuffer, 0, sendBuffer.Length);
-            if (m_connectSAEA.SocketError == SocketError.Success && m_socket != null)
-            {
-                m_socket.SendAsync(m_sendSAEA);
+                logger.Info(m_socket.RemoteEndPoint.ToString() + " | 发送消息：[" + msg + "]");
+                byte[] sendBuffer = Encoding.ASCII.GetBytes(msg);
+                if (m_sendSAEA == null)
+                {
+                    m_sendSAEA = new SocketAsyncEventArgs();
+                    m_sendSAEA.Completed += OnSendCompleted;
+                }
+                m_sendSAEA.SetBuffer(sendBuffer, 0, sendBuffer.Length);
+                if (m_connectSAEA.SocketError == SocketError.Success && m_socket != null)
+                {
+                    m_socket.SendAsync(m_sendSAEA);
+                }
             }
         }
 

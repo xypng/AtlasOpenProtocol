@@ -43,7 +43,6 @@
             this.GunIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GunPort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GunStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.connect = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGVGuns)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -76,8 +75,7 @@
             this.GunCode,
             this.GunIp,
             this.GunPort,
-            this.GunStatus,
-            this.connect});
+            this.GunStatus});
             this.dGVGuns.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dGVGuns.Location = new System.Drawing.Point(2, 16);
             this.dGVGuns.Margin = new System.Windows.Forms.Padding(2);
@@ -86,6 +84,7 @@
             this.dGVGuns.Size = new System.Drawing.Size(608, 121);
             this.dGVGuns.TabIndex = 0;
             this.dGVGuns.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.CellValidating);
+            this.dGVGuns.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGVGuns_RowHeaderMouseDoubleClick);
             this.dGVGuns.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dGVGuns_UserDeletingRow);
             // 
             // groupBox2
@@ -213,14 +212,6 @@
             this.GunStatus.ReadOnly = true;
             this.GunStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // connect
-            // 
-            this.connect.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.connect.HeaderText = "连接";
-            this.connect.Name = "connect";
-            this.connect.ReadOnly = true;
-            this.connect.Visible = false;
-            // 
             // EPClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -259,7 +250,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GunIp;
         private System.Windows.Forms.DataGridViewTextBoxColumn GunPort;
         private System.Windows.Forms.DataGridViewCheckBoxColumn GunStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn connect;
     }
 }
 

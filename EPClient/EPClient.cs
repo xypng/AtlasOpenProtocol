@@ -54,68 +54,6 @@ namespace EPClient
             }
         }
 
-        private void Socket_EventCommunicationed(object sender, EventArgs e)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            if (gun!=null)
-            {
-                Console.WriteLine("通信成功：" + gun.IP + ":" + gun.Port);
-            }
-        }
-
-        private void Socket_EventTighteningResultSubscribe(object sender, EventArgs e)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            if (gun!=null)
-            {
-                Console.WriteLine("订阅成功：" + gun.IP + ":" + gun.Port);
-                this.Invoke(new System.Action(() => {
-                    gun.Status = true;
-                    dGVGuns.Refresh();
-                }));
-            }
-        }
-
-        private void Socket_EventTighteningResultRecived(object sender, Mid mid)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            var pset = (mid as Mid0061).ParameterSetID;
-            var status = (mid as Mid0061).TighteningStatus;
-            var action = BActions.Where(a=>a.GunID==gun.ID && a.Pset==pset).FirstOrDefault();
-            if (action!=null)
-            {
-                if (status == TighteningStatus.OK)
-                {
-                    Console.WriteLine("OK：" + gun.IP + ":" + gun.Port);
-                    this.Invoke(new System.Action(() => {
-                        action.OkCount += 1;
-                        dGVActions.Refresh();
-                    }));
-                }
-                else
-                {
-                    Console.WriteLine("NOK：" + gun.IP + ":" + gun.Port);
-                    this.Invoke(new System.Action(() => {
-                        action.NokCount += 1;
-                        dGVActions.Refresh();
-                    }));
-                }
-            }
-        }
-
-        private void Socket_EventDisConnected(object sender, EventArgs e)
-        {
-            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
-            if (gun!=null)
-            {
-                Console.WriteLine("连接失败：" + gun.IP + ":" + gun.Port);
-                this.Invoke(new System.Action(() => {
-                    gun.Status = false;
-                    dGVGuns.Refresh();
-                }));
-            }
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveConfig();
@@ -210,6 +148,9 @@ namespace EPClient
             gunColum.DataSource = BGuns;
             gunColum.DisplayMember = "Code";
             gunColum.ValueMember = "ID";
+
+            DataGridViewTextBoxColumn connectColum = dGVGuns.Columns["connect"] as DataGridViewTextBoxColumn;
+            connectColum.Visible = false;
         }
 
         private void ConnectGuns()
@@ -227,6 +168,69 @@ namespace EPClient
                 g.connect = socket;
                 socket.Start();
             });
+        }
+
+
+        private void Socket_EventCommunicationed(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun != null)
+            {
+                Console.WriteLine("通信成功：" + gun.IP + ":" + gun.Port);
+            }
+        }
+
+        private void Socket_EventTighteningResultSubscribe(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun != null)
+            {
+                Console.WriteLine("订阅成功：" + gun.IP + ":" + gun.Port);
+                this.Invoke(new System.Action(() => {
+                    gun.Status = true;
+                    dGVGuns.Refresh();
+                }));
+            }
+        }
+
+        private void Socket_EventTighteningResultRecived(object sender, Mid mid)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            var pset = (mid as Mid0061).ParameterSetID;
+            var status = (mid as Mid0061).TighteningStatus;
+            var action = BActions.Where(a => a.GunID == gun.ID && a.Pset == pset).FirstOrDefault();
+            if (action != null)
+            {
+                if (status == TighteningStatus.OK)
+                {
+                    Console.WriteLine("OK：" + gun.IP + ":" + gun.Port);
+                    this.Invoke(new System.Action(() => {
+                        action.OkCount += 1;
+                        dGVActions.Refresh();
+                    }));
+                }
+                else
+                {
+                    Console.WriteLine("NOK：" + gun.IP + ":" + gun.Port);
+                    this.Invoke(new System.Action(() => {
+                        action.NokCount += 1;
+                        dGVActions.Refresh();
+                    }));
+                }
+            }
+        }
+
+        private void Socket_EventDisConnected(object sender, EventArgs e)
+        {
+            var gun = BGuns.Where(g => g.connect.Equals(sender)).FirstOrDefault();
+            if (gun != null)
+            {
+                Console.WriteLine("连接失败：" + gun.IP + ":" + gun.Port);
+                this.Invoke(new System.Action(() => {
+                    gun.Status = false;
+                    dGVGuns.Refresh();
+                }));
+            }
         }
 
         /// <summary>
@@ -344,6 +348,28 @@ namespace EPClient
                 else
                 {
                     e.Cancel = true;
+                }
+            }
+        }
+
+        private void dGVGuns_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex<BGuns.Count() && BGuns[e.RowIndex]!=null)
+            {
+                var gun = BGuns[e.RowIndex];
+                var connect = gun.connect;
+                var status = gun.Status;
+                if (connect!=null)
+                {
+                    if (status)
+                    {
+                        PsetForm form = new PsetForm(connect);
+                        form.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("未连接！");
+                    }
                 }
             }
         }
